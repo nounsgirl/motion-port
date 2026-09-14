@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>MOTION PORT — VMD → VRMA</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;color:#ebf0ed;background:#101514;font-synthesis:none;--muted:#99aaa2;--line:#303a35;--accent:#bef2ce}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button,a,input,summary{ -webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.35;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:5px}[hidden]{display:none!important}.shell{max-width:1440px;margin:auto;padding:28px 42px}header{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;border-bottom:1px solid var(--line)}.brand{font-weight:750;font-size:17px;letter-spacing:.16em;display:flex;align-items:center;gap:13px}.logo{width:28px;height:28px;border:1px solid var(--accent);border-radius:8px;display:grid;place-items:center;letter-spacing:0;color:var(--accent)}.local{font-size:11px;color:var(--muted);letter-spacing:.07em}.local:before{content:'●';color:var(--accent);margin-right:8px}.intro{padding:38px 0 29px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px}.eyebrow{font-size:10px;letter-spacing:.16em;color:var(--accent);margin:0 0 13px}h1{font-size:clamp(28px,3.3vw,46px);font-weight:600;letter-spacing:-.04em;margin:0;line-height:1.25}h1 span{color:#8caaa0;font-weight:300;padding:0 8px}.intro p:last-child{color:var(--muted);font-size:12px;line-height:1.9;margin:14px 0 0}.step{font-size:11px;color:var(--muted);white-space:nowrap;margin-bottom:5px}.step b{color:var(--accent);font-weight:500}.workspace{display:grid;grid-template-columns:350px minmax(0,1fr);gap:18px}.panel{background:#19201c;border:1px solid var(--line);border-radius:17px}.controls{padding:23px}.label{font-size:11px;letter-spacing:.03em;font-weight:600;margin:0 0 16px}.number{font-size:10px;color:var(--accent);margin-right:9px}.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:192px;border:1px dashed #58685e;border-radius:11px;background:#1d2922;position:relative;text-align:center;cursor:pointer;padding:22px 15px;transition:background .2s,border-color .2s}.drop:hover,.drop.over{background:#263b2d;border-color:var(--accent)}.upload-icon{width:37px;height:37px;margin-bottom:17px;color:var(--accent)}.drop strong{font-size:14px;line-height:1.8;font-weight:500}.drop small{font-size:10px;color:var(--muted);margin-top:7px}.drop input{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}.drop:focus-within{outline:2px solid var(--accent);outline-offset:4px}.filename{font-size:11px;color:var(--muted);margin:13px 0;overflow-wrap:anywhere;min-height:17px}.check{display:flex;align-items:center;gap:8px;font-size:11px;color:#c4d0c8;line-height:1.5;margin:13px 0}.check input{accent-color:var(--accent);width:14px;height:14px}.divider{border:0;border-top:1px solid var(--line);margin:23px 0}.primary,.secondary,.subtle{border:0;border-radius:9px;padding:13px 16px;font-weight:600;font-size:12px}.primary{background:var(--accent);color:#172a1d;width:100%}.secondary{background:#29362e;color:#d6e4db;width:100%;border:1px solid #3e5044;margin-top:9px}.subtle{background:transparent;color:var(--muted);font-size:11px;font-weight:400;padding:8px 0}.status{font-size:11px;color:var(--muted);line-height:1.8;margin:13px 0 5px;overflow-wrap:anywhere}.status.success{color:var(--accent)}.status.error{color:#ffada7}progress{width:100%;height:4px;accent-color:var(--accent)}details{font-size:12px}summary{cursor:pointer;color:#d2ddd6;list-style:none;display:flex;justify-content:space-between}summary:after{content:'＋';color:var(--muted)}details[open] summary:after{content:'−'}.settings{padding-top:15px}.field{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:13px 0;font-size:11px;color:#b8c7bd}select,input[type=number]{background:#111a14;border:1px solid #405045;color:#e0e9e3;border-radius:6px;padding:7px;max-width:100px}input[type=range]{accent-color:var(--accent);min-width:0}.hint{font-size:10px;line-height:1.8;color:var(--muted);margin:10px 0}.stage{position:relative;min-height:515px;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#202e28 0,#151d19 65%);display:flex;flex-direction:column}.stage-top{position:absolute;top:20px;left:23px;right:23px;display:flex;align-items:center;justify-content:space-between;z-index:1;pointer-events:none}.tag{font-size:10px;color:#bacac0;background:#202d25e0;border:1px solid #39493e;border-radius:5px;padding:6px 8px}.stage-top button{pointer-events:auto;font-size:10px;background:#19231d;color:var(--muted);border:1px solid #3a493f;padding:6px 9px;border-radius:5px}canvas{width:100%;height:440px;flex:1;min-height:350px;touch-action:none;cursor:grab}.empty{position:absolute;inset:70px 15px 130px;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}.empty-mark{font-size:48px;letter-spacing:-.1em;color:#587162;font-weight:200}.empty p{font-size:13px;margin-bottom:8px;color:#b7c8bd}.empty small{font-size:10px;color:#83998b}.player{padding:15px 22px;background:#151c18;border-top:1px solid #2c3930}.play-row{display:flex;align-items:center;gap:17px}.play{background:none;border:1px solid #485c4f;color:#d3e4da;border-radius:6px;padding:7px 9px;font-size:10px;white-space:nowrap;min-width:65px}.seek{flex:1;width:100%}.clock{font-size:10px;color:#b8cabe;white-space:nowrap;font-variant-numeric:tabular-nums}.player-bottom{display:flex;justify-content:space-between;align-items:center;color:#7e9686;font-size:9px;margin-top:9px}.player-bottom .check{font-size:10px;margin:0}.stats{display:flex;gap:0;border-bottom:1px solid var(--line);margin-top:19px;padding:0 0 18px}.stat{flex:1;border-right:1px solid var(--line);padding:0 22px}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat strong{font-size:22px;font-weight:450;font-variant-numeric:tabular-nums}.stat span{font-size:10px;margin-left:5px;color:var(--muted)}.stat small{display:block;font-size:9px;color:var(--muted);margin-top:5px}.note{margin-top:20px;display:grid;grid-template-columns:24px 1fr;gap:8px;color:var(--muted);font-size:11px;line-height:1.9}.note .icon{color:#c5d7a6}.note p{margin:0}.note strong{color:#c7d4cd;font-weight:500}.report-section{margin-top:17px}#messages{padding-left:17px;font-size:11px;color:var(--muted);line-height:1.9;overflow-wrap:anywhere}footer{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:29px;padding:20px 0 3px;font-size:9px;color:#7e9285;gap:20px;line-height:1.9}footer a{color:#a5bcad;text-decoration:none}footer .links{white-space:nowrap}button:hover:not(:disabled){filter:brightness(1.12)}
+@media(min-width:1400px){canvas{height:500px}}@media(max-width:850px){.shell{padding:20px}.workspace{grid-template-columns:300px minmax(0,1fr)}.controls{padding:18px}.intro{display:block}.step{margin-top:20px}.player{padding:14px}.play-row{gap:8px}.player-bottom>span{display:none}.stat{padding:0 10px}.stat strong{font-size:19px}}@media(max-width:680px){.workspace{grid-template-columns:1fr}.intro{padding-top:26px}header .local{font-size:9px}.shell{padding:18px 15px}.stage{min-height:410px}canvas{height:350px}.step{font-size:10px}.drop{min-height:160px}footer{display:block}.links{margin-top:8px}.stat{padding:0 20px}}
+</style></head><body><div class="shell">
+<header><div class="brand"><span class="logo">↗</span>MOTION PORT</div><div class="local">ローカル処理・外部送信なし</div></header>
+<section class="intro"><div><p class="eyebrow">MMD MOTION CONVERTER / 01</p><h1>VMD <span>→</span> VRMA</h1><p>MMDのダンスを、VRMのアニメーションへ。<br>ファイルを選ぶだけで、自動変換して保存。</p></div><div class="step"><b>01 選ぶ</b>　→　02 自動変換　→　03 保存</div></section>
+<main class="workspace"><section class="panel controls"><h2 class="label"><span class="number">01</span>モーションを読み込む</h2>
+<label class="drop" id="drop"><svg class="upload-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 27V8m-7 7 7-7 7 7M8 25v8h24v-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><strong>VMDをここにドロップ<br>またはクリックして選択</strong><small>.vmd / 最大64MB / 20分まで</small><input type="file" accept=".vmd" id="file" aria-label="変換するVMDファイルを選ぶ"></label>
+<p class="filename" id="filename">ファイルはまだ選択されていません</p><label class="check"><input type="checkbox" id="autosave" checked>変換後にVRMAを自動保存する</label>
+<button class="primary" id="download" disabled>VRMAを保存　↓</button><p id="status" class="status" role="status" aria-live="polite">VMDファイルを選ぶと変換が始まります。</p><progress id="progress" max="1" value="0" hidden aria-label="変換の進捗"></progress>
+<hr class="divider"><details><summary>変換設定</summary><div class="settings"><label class="field">出力フレームレート<select id="fps"><option value="30">30 fps</option><option value="60">60 fps</option></select></label><label class="field">移動倍率（m / MMD単位）<input id="scale" type="number" value="0.08" min="0.001" max="1" step="0.005"></label><label class="field">元モデルの腕の下がり角 <span id="armValue">35°</span></label><input aria-label="腕の下がり角" type="range" id="arm" min="0" max="70" value="35" style="width:100%"><label class="check"><input type="checkbox" id="ik" checked>標準体型で足IKを計算する</label><label class="check"><input type="checkbox" id="expressions" checked>対応する口・まばたき・表情を変換</label><p class="hint">元モデルがTポーズなら腕の角度を0°に。足が伸びきる場合は移動倍率を小さくしてください。骨格の寸法は標準体型に固定です。</p></div></details>
+<button class="secondary" id="reconvert" disabled>設定を反映して再変換</button><button class="subtle" id="demo">内蔵テストモーションで試す ↗</button></section>
+<section><div class="panel stage"><div class="stage-top"><span class="tag" id="stageTag">プレビュー待機中</span><button id="resetView">視点をリセット</button></div><canvas id="canvas" aria-label="変換後の標準骨格の動き。ドラッグで回転、スクロールで拡大縮小"></canvas><div id="empty" class="empty"><div class="empty-mark">↗</div><p>モーションを、次のステージへ。</p><small>変換後の骨格アニメーションをここに表示</small></div><div class="player"><div class="play-row"><button class="play" id="play" disabled>再生</button><input class="seek" id="seek" aria-label="再生位置" type="range" min="0" max="1" value="0" step="0.001" disabled><span class="clock" id="clock">0:00 / 0:00</span></div><div class="player-bottom"><span>ドラッグで回転 · スクロールで拡大縮小</span><label class="check"><input type="checkbox" id="follow" checked>移動に追従</label></div></div></div>
+<div class="stats" id="stats" hidden><div class="stat"><strong id="seconds">0</strong><span>秒</span><small>モーションの長さ</small></div><div class="stat"><strong id="bones">0</strong><span>ボーン</span><small>対応した入力ボーン</small></div><div class="stat"><strong id="size">0</strong><span>MB</span><small>VRMAのファイルサイズ</small></div></div>
+<div class="note"><span class="icon">ⓘ</span><p><strong>標準体型による近似変換です。</strong><br>VMDには元モデルの骨格寸法が入っていないため、足の接地や腕の角度は元と異なる場合があります。髪・服の物理演算、つま先IK、特殊な補助ボーンは再現しません。実際に使うアプリで動きを確認してください。</p></div>
+<details class="report-section"><summary>変換レポート・未対応項目</summary><ul id="messages"><li>変換後にここに表示します。</li></ul><button class="subtle" id="report" disabled>レポートを保存（JSON） ↓</button></details></section></main>
+<footer><div>インストール不要 / このHTMLだけでオフライン動作 / 元ファイルは変更しません<br>プレビューは標準骨格です。VRMモデルや再生先アプリでの互換性を確認するものではありません。</div><div class="links"><a href="https://github.com/vrm-c/vrm-specification/tree/master/specification/VRMC_vrm_animation-1.0" target="_blank" rel="noopener">VRM Animation 1.0 仕様 ↗</a>　·　v1.0</div></footer>
+</div><script id="converter-core">/* VMD → VRMA. Original implementation, MIT license. */
+(function (root) {
+'use strict';
+const I=[0,0,0,1], Z=[0,0,0];
+const add=(a,b)=>a.map((v,i)=>v+b[i]), sub=(a,b)=>a.map((v,i)=>v-b[i]), mul=(a,s)=>a.map(v=>v*s);
+const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0), length=a=>Math.hypot(...a), unit=a=>mul(a,1/(length(a)||1));
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const norm=q=>length(q)<1e-10?I.slice():unit(q), inv=q=>[-q[0],-q[1],-q[2],q[3]];
+function qm(a,b){return [a[3]*b[0]+a[0]*b[3]+a[1]*b[2]-a[2]*b[1],a[3]*b[1]-a[0]*b[2]+a[1]*b[3]+a[2]*b[0],a[3]*b[2]+a[0]*b[1]-a[1]*b[0]+a[2]*b[3],a[3]*b[3]-a[0]*b[0]-a[1]*b[1]-a[2]*b[2]];}
+function rotate(q,v){return qm(qm(q,[...v,0]),inv(q)).slice(0,3);}
+function axis(a,r){return [...mul(unit(a),Math.sin(r/2)),Math.cos(r/2)];}
+function between(a,b){a=unit(a);b=unit(b);const d=dot(a,b);if(d<-.999999){let c=cross(a,[1,0,0]);if(length(c)<.001)c=cross(a,[0,1,0]);return axis(c,Math.PI);}return norm([...cross(a,b),1+d]);}
+function slerp(a,b,t){let d=dot(a,b);if(d<0){b=mul(b,-1);d=-d;}if(d>.9995)return norm(a.map((v,i)=>v+(b[i]-v)*t));const theta=Math.acos(clamp(d,-1,1)),s=Math.sin(theta);return a.map((v,i)=>(v*Math.sin((1-t)*theta)+b[i]*Math.sin(t*theta))/s);}
+function canonical(s){return s.normalize('NFKC').replace(/\s/g,'');}
+class Reader {
+ constructor(buffer){this.v=new DataView(buffer);this.o=0;this.decoder=new TextDecoder('shift-jis');}
+ need(n){if(n<0||this.o+n>this.v.byteLength)throw Error('VMDが途中で切れているか、データ件数が不正です。');}
+ u8(){this.need(1);return this.v.getUint8(this.o++);}
+ u32(){this.need(4);const v=this.v.getUint32(this.o,true);this.o+=4;return v;}
+ f(){this.need(4);const v=this.v.getFloat32(this.o,true);this.o+=4;if(!Number.isFinite(v))throw Error('VMDに不正な数値が含まれています。');return v;}
+ bytes(n){this.need(n);const a=new Uint8Array(this.v.buffer,this.o,n).slice();this.o+=n;return a;}
+ text(n){const a=this.bytes(n),z=a.indexOf(0);return this.decoder.decode(z<0?a:a.subarray(0,z));}
+ count(size){const n=this.u32();if(n>1000000||n*size>this.v.byteLength-this.o)throw Error('VMDのデータ件数が不正、または大きすぎます。');return n;}
+ remaining(){return this.v.byteLength-this.o;}
+}
+function organize(map){for(const [name,keys] of map){const unique=new Map(keys.map(k=>[k.frame,k]));map.set(name,[...unique.values()].sort((a,b)=>a.frame-b.frame));}}
+function parseVMD(buffer){
+ if(buffer.byteLength>64*1024*1024)throw Error('読み込めるVMDは64MBまでです。');
+ const r=new Reader(buffer),magic=r.text(30);if(!['Vocaloid Motion Data 0002','Vocaloid Motion Data file'].includes(magic))throw Error('MMDのVMD形式ではありません。ダンス用の .vmd を選んでください。');
+ const model=r.text(magic.endsWith('0002')?20:10),bones=new Map(),morphs=new Map(),iks=new Map();let maxFrame=0;
+ const insert=(map,name,k)=>{name=canonical(name);if(!map.has(name))map.set(name,[]);map.get(name).push(k);};
+ const boneCount=r.count(111);
+ for(let i=0;i<boneCount;i++){const name=r.text(15),frame=r.u32(),p=[r.f(),r.f(),-r.f()],q=norm([-r.f(),-r.f(),r.f(),r.f()]),curve=r.bytes(64);insert(bones,name,{frame,p,q,curve});maxFrame=Math.max(maxFrame,frame);}
+ const morphCount=r.count(23);
+ for(let i=0;i<morphCount;i++){const name=r.text(15),frame=r.u32(),weight=r.f();insert(morphs,name,{frame,weight});maxFrame=Math.max(maxFrame,frame);}
+ const skipped={camera:0,light:0,shadow:0,visibility:0};
+ for(const [key,size] of [['camera',61],['light',28],['shadow',9]]){if(!r.remaining())break;const n=r.count(size);skipped[key]=n;r.bytes(n*size);}
+ if(r.remaining()){const n=r.count(9);skipped.visibility=n;for(let i=0;i<n;i++){const frame=r.u32();r.u8();const count=r.count(21);for(let j=0;j<count;j++)insert(iks,r.text(20),{frame,enabled:r.u8()!==0});}}
+ organize(bones);organize(morphs);organize(iks);
+ if(!boneCount&&!morphCount)throw Error('人体モーションがありません。カメラ専用VMDは変換できません。');
+ if(maxFrame>30*60*20)throw Error('対応するモーションの長さは20分までです。');
+ return {model,bones,morphs,iks,maxFrame,boneCount,morphCount,skipped,trailing:r.remaining()};
+}
+function bracket(keys,f){let lo=0,hi=keys.length-1;if(f<=keys[0].frame)return [keys[0],keys[0],0];if(f>=keys[hi].frame)return [keys[hi],keys[hi],0];while(lo+1<hi){const m=(lo+hi)>>1;if(keys[m].frame<=f)lo=m;else hi=m;}return [keys[lo],keys[hi],(f-keys[lo].frame)/(keys[hi].frame-keys[lo].frame)];}
+function bezier(t,c,k){const x1=clamp(c[k]/127,0,1),y1=clamp(c[k+4]/127,0,1),x2=clamp(c[k+8]/127,0,1),y2=clamp(c[k+12]/127,0,1);if(x1===y1&&x2===y2)return t;const cubic=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;let lo=0,hi=1,u=t;for(let i=0;i<18;i++){if(cubic(u,x1,x2)<t)lo=u;else hi=u;u=(lo+hi)/2;}return cubic(u,y1,y2);}
+function sample(keys,f){if(!keys?.length)return {p:Z,q:I};const [a,b,t]=bracket(keys,f);if(a===b)return a;return {p:a.p.map((v,k)=>v+(b.p[k]-v)*bezier(t,b.curve,k)),q:slerp(a.q,b.q,bezier(t,b.curve,3))};}
+function weight(keys,f){if(!keys?.length)return 0;const [a,b,t]=bracket(keys,f);return clamp(a.weight+(b.weight-a.weight)*t,0,1);}
+function ikOn(keys,f){if(!keys?.length||f<keys[0].frame)return true;let lo=0,hi=keys.length;while(lo+1<hi){const m=(lo+hi)>>1;if(keys[m].frame<=f)lo=m;else hi=m;}return keys[lo].enabled;}
+const MORPHS={aa:['あ'],ih:['い'],ou:['う'],ee:['え'],oh:['お'],blink:['まばたき'],blinkLeft:['ウィンク','ウィンク2','ウィンク左'],blinkRight:['ウィンク右','ウィンク2右'],happy:['笑い','にこり'],angry:['怒り'],sad:['悲しい'],relaxed:['なごみ'],surprised:['びっくり']};
+function makeRig(angle=35){
+ const src=[],nodes=[],humanBones={},binding=[],byName=new Map();
+ function source(name,parent,p){const n=src.length;src.push({name,parent,p});byName.set(name,n);return n;}
+ function target(name,parent,p,s,c=I){const n=nodes.length;nodes.push({name,translation:p});if(parent>=0)(nodes[parent].children??=[]).push(n);humanBones[name]={node:n};binding.push({s,c,parent});return n;}
+ const root=source('全ての親',-1,Z),center=source('センター',root,[0,1,0]),groove=source('グルーブ',center,Z),waist=source('腰',groove,Z),lower=source('下半身',waist,Z),upper=source('上半身',waist,[0,.12,0]),upper2=source('上半身2',upper,[0,.15,0]);
+ const hips=target('hips',-1,[0,1,0],lower),spine=target('spine',hips,[0,.12,0],upper),chest=target('chest',spine,[0,.15,0],upper2),neckS=source('首',upper2,[0,.18,0]),neck=target('neck',chest,[0,.18,0],neckS),headS=source('頭',neckS,[0,.08,0]);target('head',neck,[0,.08,0],headS);
+ const legs=[];
+ for(const [jp,en,sign] of [['左','left',1],['右','right',-1]]){
+  const c=axis([0,0,1],-sign*angle*Math.PI/180);
+  const shoulderS=source(jp+'肩',upper2,[sign*.07,.12,0]),shoulder=target(en+'Shoulder',chest,[sign*.07,.12,0],shoulderS);
+  const armS=source(jp+'腕',shoulderS,[sign*.1,0,0]),arm=target(en+'UpperArm',shoulder,[sign*.1,0,0],armS,c);
+  const twistS=source(jp+'腕捩',armS,Z),elbowS=source(jp+'ひじ',twistS,rotate(c,[sign*.27,0,0])),elbow=target(en+'LowerArm',arm,[sign*.27,0,0],elbowS,c);
+  const handTwist=source(jp+'手捩',elbowS,Z),handS=source(jp+'手首',handTwist,rotate(c,[sign*.24,0,0])),hand=target(en+'Hand',elbow,[sign*.24,0,0],handS,c);
+  for(const [finger,label,depth] of [['親指','Thumb',.035],['人指','Index',.023],['中指','Middle',0],['薬指','Ring',-.023],['小指','Little',-.045]]){
+   let ps=handS,pt=hand;const parts=label==='Thumb'?['Metacarpal','Proximal','Distal']:['Proximal','Intermediate','Distal'];
+   for(let j=0;j<3;j++){const p=j===0?[sign*(label==='Thumb'?.025:.075),0,depth]:[sign*.03,0,label==='Thumb'?.03:0];const s=source(jp+finger+(label==='Thumb'?j:j+1),ps,rotate(c,p));const t=target(en+label+parts[j],pt,p,s,c);ps=s;pt=t;}
+  }
+  const thighS=source(jp+'足',lower,[sign*.09,-.05,0]),thigh=target(en+'UpperLeg',hips,[sign*.09,-.05,0],thighS),kneeS=source(jp+'ひざ',thighS,[0,-.43,0]),knee=target(en+'LowerLeg',thigh,[0,-.43,0],kneeS),footS=source(jp+'足首',kneeS,[0,-.44,0]),foot=target(en+'Foot',knee,[0,-.44,0],footS),toeS=source(jp+'つま先',footS,[0,-.03,.12]);target(en+'Toes',foot,[0,-.03,.12],toeS);
+  const ikParent=source(jp+'足IK親',root,[sign*.09,0,0]),controller=source(jp+'足IK',ikParent,[0,.08,0]);
+  legs.push({jp,thighS,kneeS,footS,controller});
+ }
+ return {src,nodes,humanBones,binding,byName,legs,root};
+}
+function pose(rig,vmd,frame,options){
+ const {src,binding}=rig,p=[],q=[];const local=[];
+ for(let i=0;i<src.length;i++){const b=src[i],s=sample(vmd.bones.get(b.name),frame);local[i]=s.q;const t=add(b.p,mul(s.p,options.scale));p[i]=b.parent<0?t:add(p[b.parent],rotate(q[b.parent],t));q[i]=b.parent<0?s.q:qm(q[b.parent],s.q);}
+ let unreachable=0;
+ if(options.ik)for(const leg of rig.legs){const {jp,thighS:a,kneeS:b,footS:c,controller}=leg;if(!vmd.bones.has(jp+'足IK')||!ikOn(vmd.iks.get(jp+'足IK'),frame))continue;
+  const target=p[controller],delta=sub(target,p[a]),raw=length(delta),dist=clamp(raw,.010001,.869999),dir=raw>1e-7?unit(delta):[0,-1,0];if(raw>.871)unreachable++;
+  let forward=rotate(q[a],[0,0,1]);let bend=sub(forward,mul(dir,dot(forward,dir)));if(length(bend)<1e-5){forward=rotate(q[rig.root],[1,0,0]);bend=sub(forward,mul(dir,dot(forward,dir)));}bend=unit(bend);
+  const along=(.43*.43-.44*.44+dist*dist)/(2*dist),height=Math.sqrt(Math.max(0,.43*.43-along*along));const knee=add(p[a],add(mul(dir,along),mul(bend,height))),ankle=add(p[a],mul(dir,dist));
+  const old=q[a];q[a]=qm(between(rotate(old,[0,-1,0]),sub(knee,p[a])),old);
+  q[b]=qm(between(rotate(q[a],[0,-1,0]),sub(ankle,knee)),q[a]);p[b]=knee;p[c]=ankle;q[c]=q[controller];
+  for(let j=c+1;j<src.length;j++)if(src[j].parent===c){p[j]=add(p[c],rotate(q[c],src[j].p));q[j]=qm(q[c],local[j]);}
+ }
+ const world=binding.map(b=>norm(qm(q[b.s],b.c))),rotations=binding.map((b,i)=>b.parent<0?world[i]:norm(qm(inv(world[b.parent]),world[i])));
+ return {rotations,hips:p[binding[0].s],unreachable};
+}
+function evaluate(rig,rotations,hips){const p=[],q=[];for(let i=0;i<rig.nodes.length;i++){const parent=rig.binding[i].parent;q[i]=parent<0?rotations[i]:qm(q[parent],rotations[i]);p[i]=parent<0?hips:add(p[parent],rotate(q[parent],rig.nodes[i].translation));}return {p,q};}
+function convert(vmd,opts={},onProgress=()=>{}){
+ const options={fps:30,scale:.08,armAngle:35,ik:true,expressions:true,...opts};
+ if(![30,60].includes(options.fps)||!Number.isFinite(options.scale)||options.scale<.001||options.scale>1||!Number.isFinite(options.armAngle)||options.armAngle<0||options.armAngle>70)throw Error('変換設定の値が範囲外です。');
+ const rig=makeRig(options.armAngle),recognized=[...vmd.bones.keys()].filter(n=>rig.byName.has(n));
+ const exprs=options.expressions?Object.entries(MORPHS).map(([name,aliases])=>({name,keys:aliases.map(a=>vmd.morphs.get(canonical(a))).filter(Boolean)})).filter(e=>e.keys.length):[];
+ if(!recognized.length&&!exprs.length)throw Error('対応する人体ボーン・表情が見つかりません。標準の日本語ボーン名を持つダンスVMDが必要です。');
+ const count=Math.ceil(vmd.maxFrame*options.fps/30)+1;
+ if(count*rig.nodes.length>2400000)throw Error('出力が大きすぎます。30fpsを選ぶか、モーションを短くしてください。');
+ const times=new Float32Array(count),tracks=rig.nodes.map(()=>new Float32Array(count*4)),hips=new Float32Array(count*3),expressionTracks=exprs.map(()=>new Float32Array(count*3));let reach=0;
+ for(let i=0;i<count;i++){const f=Math.min(vmd.maxFrame,i*30/options.fps);times[i]=f/30;const result=pose(rig,vmd,f,options);hips.set(result.hips,i*3);reach+=result.unreachable;
+  for(let j=0;j<tracks.length;j++){let q=result.rotations[j];if(i&&dot(q,tracks[j].subarray((i-1)*4,i*4))<0)q=mul(q,-1);tracks[j].set(q,i*4);}
+  exprs.forEach((e,j)=>{expressionTracks[j][i*3]=Math.max(...e.keys.map(k=>weight(k,f)));});if(i%120===0)onProgress(i/count);
+ }
+ const warnings=['元モデルの骨格を含まないVMDのため、標準体型による近似変換です。元のダンスとの完全一致は保証しません。'];
+ const ignored=[...vmd.bones.keys()].filter(n=>!rig.byName.has(n));if(ignored.length)warnings.push('未対応ボーン: '+ignored.join('、'));
+ const mappedMorphs=new Set(Object.values(MORPHS).flat().map(canonical)),ignoredMorphs=[...vmd.morphs.keys()].filter(n=>!options.expressions||!mappedMorphs.has(n));if(ignoredMorphs.length)warnings.push('未変換の表情: '+ignoredMorphs.join('、'));
+ if(Object.values(vmd.skipped).some(Boolean))warnings.push('カメラ・照明・影・モデル表示切替は出力しません。足IKのON/OFFは反映します。');
+ if(reach)warnings.push('足IKの目標が標準脚長の範囲を超えたサンプルがあります。足の位置がずれる場合は移動倍率を調整してください。');
+ if(!options.ik&&[...vmd.bones.keys()].some(n=>n.endsWith('足IK')))warnings.push('足IKを無効にしたため、足IKの動きは出力していません。');
+ const translated=[...vmd.bones].filter(([n,keys])=>rig.byName.has(n)&&!['全ての親','センター','グルーブ','腰','下半身'].includes(n)&&!n.includes('IK')&&keys.some(k=>length(k.p)>1e-5)).map(([n])=>n);if(translated.length)warnings.push('hips以外の移動はVRMAに保持できません: '+translated.join('、'));
+ if(vmd.trailing)warnings.push('末尾の未解釈データ '+vmd.trailing+' バイトは出力していません。');
+ const report={model:vmd.model,duration:vmd.maxFrame/30,boneKeys:vmd.boneCount,morphKeys:vmd.morphCount,recognizedBones:recognized,ignoredBones:ignored,ignoredMorphs,samples:count,options,warnings};
+ const result={rig,times,tracks,hips,exprs:exprs.map(e=>e.name),expressionTracks,report};result.glb=exportGLB(result);onProgress(1);return result;
+}
+function exportGLB(result){
+ const {rig,times,tracks,hips,exprs,expressionTracks}=result;
+ const nodes=structuredClone(rig.nodes),extension={specVersion:'1.0',humanoid:{humanBones:rig.humanBones}},g={asset:{version:'2.0',generator:'VMD to VRMA Local 1.0'},extensionsUsed:['VRMC_vrm_animation'],extensions:{VRMC_vrm_animation:extension},scene:0,scenes:[{nodes:[0]}],nodes,animations:[{name:'VMD Dance',samplers:[],channels:[]}],buffers:[],bufferViews:[],accessors:[]};
+ const chunks=[];let byteLength=0;
+ function accessor(data,type,bounds=false){const view=g.bufferViews.length;g.bufferViews.push({buffer:0,byteOffset:byteLength,byteLength:data.byteLength});chunks.push(new Uint8Array(data.buffer,data.byteOffset,data.byteLength));byteLength+=data.byteLength;const a={bufferView:view,componentType:5126,count:data.length/({SCALAR:1,VEC3:3,VEC4:4}[type]),type};if(bounds){a.min=[data[0]];a.max=[data[data.length-1]];}g.accessors.push(a);return g.accessors.length-1;}
+ const time=accessor(times,'SCALAR',true),anim=g.animations[0];
+ function channel(node,path,data,type){const sampler=anim.samplers.length;anim.samplers.push({input:time,output:accessor(data,type),interpolation:'LINEAR'});anim.channels.push({sampler,target:{node,path}});}
+ tracks.forEach((data,i)=>channel(i,'rotation',data,'VEC4'));channel(0,'translation',hips,'VEC3');
+ if(exprs.length){extension.expressions={preset:{}};exprs.forEach((name,i)=>{const node=nodes.length;nodes.push({name:'expression_'+name});g.scenes[0].nodes.push(node);extension.expressions.preset[name]={node};channel(node,'translation',expressionTracks[i],'VEC3');});}
+ g.buffers.push({byteLength});const json=new TextEncoder().encode(JSON.stringify(g)),jsonSize=(json.length+3)&~3,binSize=(byteLength+3)&~3,total=12+8+jsonSize+8+binSize,out=new Uint8Array(total),v=new DataView(out.buffer);
+ v.setUint32(0,0x46546c67,true);v.setUint32(4,2,true);v.setUint32(8,total,true);v.setUint32(12,jsonSize,true);v.setUint32(16,0x4e4f534a,true);out.fill(32,20,20+jsonSize);out.set(json,20);v.setUint32(20+jsonSize,binSize,true);v.setUint32(24+jsonSize,0x004e4942,true);let off=28+jsonSize;for(const c of chunks){out.set(c,off);off+=c.length;}return out.buffer;
+}
+function demo(){const bones=new Map(),curve=new Uint8Array(64);for(let k=0;k<4;k++){curve[k]=20;curve[k+4]=20;curve[k+8]=107;curve[k+12]=107;}
+ const addTrack=(name,fn)=>{const keys=[];for(let f=0;f<=180;f+=15)keys.push({frame:f,curve,...fn(f/30)});bones.set(name,keys);};
+ addTrack('センター',t=>({p:[Math.sin(t*Math.PI)*.65,Math.sin(t*Math.PI*2)*.18,0],q:axis([0,1,0],Math.sin(t*Math.PI)*.12)}));
+ for(const [jp,s] of [['左',1],['右',-1]]){addTrack(jp+'腕',t=>({p:Z,q:axis([0,0,1],s*(.2+.65*Math.sin(t*Math.PI)))}));addTrack(jp+'ひじ',t=>({p:Z,q:axis([0,1,0],s*(.6+.4*Math.sin(t*Math.PI)))}));addTrack(jp+'足IK',t=>({p:[0,Math.max(0,Math.sin(t*Math.PI+s*Math.PI/2))*.9,0],q:I}));}
+ return {model:'内蔵テストモーション',bones,morphs:new Map(),iks:new Map(),maxFrame:180,boneCount:[...bones.values()].reduce((n,k)=>n+k.length,0),morphCount:0,skipped:{},trailing:0};
+}
+const api={parseVMD,convert,exportGLB,makeRig,pose,evaluate,demo,sample,bezier,math:{qm,rotate,axis,between,slerp,dot,length},canonical};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.VMDVRMA=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script>'use strict';
+const $=id=>document.getElementById(id);
+let input=null,result=null,worker=null,blobURL=null,reportURL=null,currentName='dance',playing=true,time=0,last=0,angle=.28,tilt=.12,zoom=1,drag=null,job=0,demoMode=false;
+const core=VMDVRMA;
+function status(text,kind=''){ $('status').textContent=text;$('status').className='status '+kind; }
+function options(){return {fps:Number($('fps').value),scale:Number($('scale').value),armAngle:Number($('arm').value),ik:$('ik').checked,expressions:$('expressions').checked};}
+function invalidate(){result=null;$('download').disabled=true;$('report').disabled=true;$('play').disabled=true;$('seek').disabled=true;$('stats').hidden=true;$('messages').replaceChildren();$('empty').hidden=false;$('stageTag').textContent='プレビュー待機中';if(blobURL)URL.revokeObjectURL(blobURL);if(reportURL)URL.revokeObjectURL(reportURL);blobURL=reportURL=null;time=0;}
+async function load(file){if(!file)return;if(!/\.vmd$/i.test(file.name)){status('.vmd ファイルを選んでください。','error');return;}if(file.size>64*1024*1024){status('読み込めるVMDは64MBまでです。','error');return;}const ticket=++job;worker?.terminate();invalidate();input=null;$('filename').textContent=file.name;status('VMDを読み込んでいます…');try{const buffer=await file.arrayBuffer();if(ticket!==job)return;input=buffer;currentName=file.name.replace(/\.vmd$/i,'');run(false,ticket);}catch(e){if(ticket===job)status(e.message,'error');}}
+function run(isDemo=false,ticket=++job){demoMode=isDemo;worker?.terminate();invalidate();$('reconvert').disabled=true;$('progress').hidden=false;$('progress').value=0;status('ボーンと足IKを変換しています…');
+ const source=document.getElementById('converter-core').textContent+`\nonmessage=e=>{try{const vmd=e.data.demo?VMDVRMA.demo():VMDVRMA.parseVMD(e.data.buffer);const r=VMDVRMA.convert(vmd,e.data.options,p=>postMessage({progress:p}));postMessage({result:r},[r.glb,r.times.buffer,r.hips.buffer,...r.tracks.map(t=>t.buffer),...r.expressionTracks.map(t=>t.buffer)]);}catch(error){postMessage({error:error.message});}};`;
+ try{const url=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));worker=new Worker(url);URL.revokeObjectURL(url);
+ worker.onmessage=e=>{if(ticket!==job)return;if('progress'in e.data){$('progress').value=e.data.progress;return;}worker.terminate();worker=null;$('progress').hidden=true;$('reconvert').disabled=!input&&!demoMode;
+ if(e.data.error){status(e.data.error,'error');return;}result=e.data.result;time=0;playing=true;$('play').textContent='一時停止';$('play').disabled=false;$('seek').disabled=false;$('download').disabled=false;$('report').disabled=false;$('empty').hidden=true;$('stats').hidden=false;$('stageTag').textContent='標準体型の変換結果';
+ $('seconds').textContent=result.report.duration.toFixed(1);$('bones').textContent=result.report.recognizedBones.length;$('size').textContent=(result.glb.byteLength/1024/1024).toFixed(2);$('seek').max=Math.max(.001,result.report.duration);$('seek').value=0;
+ blobURL=URL.createObjectURL(new Blob([result.glb],{type:'model/gltf-binary'}));reportURL=URL.createObjectURL(new Blob([JSON.stringify(result.report,null,2)],{type:'application/json'}));
+ for(const warning of result.report.warnings){const li=document.createElement('li');li.textContent=warning;$('messages').append(li);}status('変換完了。VRMAを保存できます。','success');if($('autosave').checked&&!isDemo)download(blobURL,currentName+'.vrma');};
+ worker.onerror=e=>{if(ticket!==job)return;worker?.terminate();worker=null;$('progress').hidden=true;$('reconvert').disabled=!input;status('変換処理を開始できませんでした。ChromeまたはSafariで開き直してください。','error');};
+ worker.postMessage({demo:isDemo,buffer:isDemo?null:input,options:options()});
+ }catch(e){$('progress').hidden=true;$('reconvert').disabled=!input;status('処理を開始できません: '+e.message,'error');}
+}
+function download(url,name){const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();}
+$('file').addEventListener('change',e=>{load(e.target.files[0]);e.target.value='';});
+const drop=$('drop');for(const event of ['dragenter','dragover'])drop.addEventListener(event,e=>{e.preventDefault();drop.classList.add('over');});for(const event of ['dragleave','drop'])drop.addEventListener(event,e=>{e.preventDefault();drop.classList.remove('over');});drop.addEventListener('drop',e=>load(e.dataTransfer.files[0]));
+window.addEventListener('dragover',e=>e.preventDefault());window.addEventListener('drop',e=>e.preventDefault());
+$('download').onclick=()=>blobURL&&download(blobURL,currentName+'.vrma');$('report').onclick=()=>reportURL&&download(reportURL,currentName+'-変換レポート.json');$('reconvert').onclick=()=>{if(input||demoMode)run(demoMode);};
+$('demo').onclick=()=>{input=null;currentName='sample-dance';$('filename').textContent='内蔵テストモーション';run(true);};
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'一時停止':'再生';};$('seek').oninput=()=>{time=Number($('seek').value);};
+for(const id of ['fps','scale','arm','ik','expressions'])$(id).addEventListener('change',()=>{if(result)status('設定を変更しました。「設定を反映して再変換」で適用します。');});
+$('arm').oninput=()=>$('armValue').textContent=$('arm').value+'°';
+const canvas=$('canvas'),ctx=canvas.getContext('2d');
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(!drag)return;angle+=(e.clientX-drag.x)*.009;tilt=Math.max(-.6,Math.min(.8,tilt+(e.clientY-drag.y)*.005));drag={x:e.clientX,y:e.clientY};});canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(.5,Math.min(2.5,zoom*Math.exp(-e.deltaY*.001)));},{passive:false});$('resetView').onclick=()=>{angle=.28;tilt=.12;zoom=1;};
+function draw(now){const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2),w=rect.width,h=rect.height;if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ if(result&&playing)time=result.report.duration?(time+Math.min((now-last)/1000,.1))%result.report.duration:0;last=now;
+ let positions=null,rig=result?.rig;let follow=[0,0,0];
+ if(result){const n=result.times.length;let idx=Math.min(n-1,Math.floor(time*result.report.options.fps)),next=Math.min(n-1,idx+1),alpha=next===idx?0:(time-result.times[idx])/(result.times[next]-result.times[idx]);alpha=Math.max(0,Math.min(1,alpha));const qs=result.tracks.map(t=>core.math.slerp([...t.subarray(idx*4,idx*4+4)],[...t.subarray(next*4,next*4+4)],alpha)),hips=[0,1,2].map(i=>result.hips[idx*3+i]+(result.hips[next*3+i]-result.hips[idx*3+i])*alpha);positions=core.evaluate(rig,qs,hips).p;if($('follow').checked)follow=[hips[0],0,hips[2]];$('seek').value=time;$('clock').textContent=formatTime(time)+' / '+formatTime(result.report.duration);}
+ const project=p=>{const x=p[0]-follow[0],y=p[1]-.84,z=p[2]-follow[2],xx=x*Math.cos(angle)-z*Math.sin(angle),zz=x*Math.sin(angle)+z*Math.cos(angle),yy=y*Math.cos(tilt)-zz*Math.sin(tilt),depth=y*Math.sin(tilt)+zz*Math.cos(tilt),s=Math.min(w/3.25,h/2.6)*zoom*4/(4-depth);return [w/2+xx*s,h/2-yy*s,depth];};
+ const line=(a,b,color,width=1)=>{a=project(a);b=project(b);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();};
+ const gridX=Math.round(follow[0]*2)/2,gridZ=Math.round(follow[2]*2)/2;for(let i=-10;i<=10;i++){const a=i*.25;line([gridX-2.5,0,gridZ+a],[gridX+2.5,0,gridZ+a],'#263133',.7);line([gridX+a,0,gridZ-2.5],[gridX+a,0,gridZ+2.5],'#263133',.7);}
+ line([0,.002,0],[.45,.002,0],'#dc817d',2);line([0,.002,0],[0,.002,.45],'#7faee0',2);
+ if(positions){const order=positions.map((p,i)=>({i,z:project(p)[2]})).sort((a,b)=>a.z-b.z);for(const {i} of order){const parent=rig.binding[i].parent;if(parent<0)continue;const name=rig.nodes[i].name,finger=/Thumb|Index|Middle|Ring|Little/.test(name);line(positions[parent],positions[i],name.startsWith('left')?'#b5f2cd':name.startsWith('right')?'#9fa9ff':'#e8f0ed',finger?2:6);}
+ for(const {i} of order){if(/Thumb|Index|Middle|Ring|Little/.test(rig.nodes[i].name))continue;const p=project(positions[i]);ctx.fillStyle='#e1ebe5';ctx.beginPath();ctx.arc(p[0],p[1],i===4?12:4,0,Math.PI*2);ctx.fill();}const head=positions[4];line(head,[head[0],head[1]+.01,head[2]+.1],'#b6f3cc',3);}
+ requestAnimationFrame(draw);
+}
+function formatTime(t){return Math.floor(t/60)+':'+Math.floor(t%60).toString().padStart(2,'0');}
+requestAnimationFrame(draw);
+</script></body></html>
